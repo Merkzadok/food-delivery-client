@@ -9,7 +9,7 @@ export const FoodCategories = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const response = await fetch("http://localhost:4000/food-category");
+      const response = await fetch("http://localhost:4200/food-category");
 
       const data = await response.json();
 
@@ -18,7 +18,6 @@ export const FoodCategories = () => {
 
     getCategories();
   }, []);
-  console.log(categories);
 
   if (!categories.length)
     return <p className="text-white">No categories found</p>;
@@ -28,7 +27,7 @@ export const FoodCategories = () => {
       <div className="flex flex-col my-8 gap-9">
         <div className="text-3xl font-semibold text-white">Categories</div>
         <div className="flex gap-2 flex-nowrap">
-          {categories?.map((category) => (
+          {categories?.slice(0, 10).map((category) => (
             <div
               key={category._id}
               className="flex items-center px-5 py-1 rounded-full bg-background"

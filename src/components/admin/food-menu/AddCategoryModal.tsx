@@ -11,12 +11,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const AddCategoryModal = () => {
   const [categoryName, setCategoryName] = useState<string>("");
 
   const createCategoryName = async () => {
-    setCategoryName("");
+    try {
+      const response = await fetch("http://localhost:4200/food-category", {
+        method: "POST",
+        body: JSON.stringify({ categoryName: categoryName }),
+        headers: {
+          "content-type": "application/json;  charset=UTF-8",
+        },
+      });
+      console.log("response", response);
+      if (!response.ok) {
+        throw new Error("Failed to create category");
+      }
+      toast.success("category successfully created");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
