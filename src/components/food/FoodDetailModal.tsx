@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus, X, Minus } from "lucide-react";
 import Image from "next/legacy/image";
+import { FoodCartContext } from "@/providers/FoodCard";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 type FoodDetailModalProps = {
   food: never;
@@ -25,6 +26,11 @@ export const FoodDetailModal = ({
   onToggleModal,
 }: FoodDetailModalProps) => {
   const [quantity, setQuantity] = useState<number>(1);
+
+  // const foodCard = useContext(FoodCartContext);
+
+  const { foodCart, setFoodCart } = useContext(FoodCartContext);
+
   const { foodName, image, ingredients, price } = food;
 
   const addQuantity = () => {
@@ -36,6 +42,10 @@ export const FoodDetailModal = ({
   };
 
   const handleAddToCart = () => {
+    setFoodCart([
+      ...foodCart,
+      { price: price, foodName: foodName, quantity: quantity },
+    ]);
     setQuantity(1);
     onToggleModal();
   };
@@ -45,7 +55,7 @@ export const FoodDetailModal = ({
       <DialogContent className="bg-white flex flex-col max-w-[826px] max-h-[412px] sm:rounded-3xl">
         <div className="flex w-full h-full gap-6 rounded-3xl">
           <div className="w-1/2 overflow-hidden rounded-xl">
-            <Image
+            {/* <Image
               src={image}
               alt={foodName}
               objectFit="cover"
@@ -53,7 +63,7 @@ export const FoodDetailModal = ({
               width={377}
               height={364}
               className="rounded-xl"
-            />
+            /> */}
           </div>
           <div className="flex flex-col w-1/2 ">
             <div className="flex justify-end">

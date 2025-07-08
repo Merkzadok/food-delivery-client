@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSheetEmptyCard } from "./OrderSheetEmptyCard";
 import { OrderSheetFoodItem } from "./OrderSheetFoodItem";
+import { useContext } from "react";
+import { FoodCartContext } from "@/providers/FoodCard";
 
 export const cartData = [
   {
@@ -21,13 +23,15 @@ export const cartData = [
   },
 ];
 export const OrderSheetCart = () => {
+  const { foodCart } = useContext(FoodCartContext);
+
   const renderFoodCard = () => {
-    if (cartData?.length) {
-      return cartData?.map((item) => {
+    if (foodCart?.length) {
+      return foodCart?.map((item) => {
         return (
           <OrderSheetFoodItem
-            key={item.food._id}
-            food={item.food}
+            key={item.price}
+            food={item.foodName}
             quantity={item.quantity}
           />
         );
