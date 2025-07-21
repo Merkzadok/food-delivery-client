@@ -4,11 +4,22 @@ import { Button } from "@/components/ui/button";
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 
-export const OrderSheetFoodItem = ({ food, quantity }) => {
+type OrderSheetFoodItemProps = {
+  food: string;
+  quantity: number;
+  foodName: string;
+  ingredients: string;
+};
+
+export const OrderSheetFoodItem = ({
+  food,
+  quantity,
+}: OrderSheetFoodItemProps) => {
+  console.log("food", food, "quantity", quantity);
   return (
     <>
       <div className="flex gap-3">
-        <div className="w-[124px] h-[120px] relative rounded-lg overflow-hidden">
+        {/* <div className="w-[124px] h-[120px] relative rounded-lg overflow-hidden">
           <Image
             className="fill"
             src={food?.image}
@@ -16,14 +27,14 @@ export const OrderSheetFoodItem = ({ food, quantity }) => {
             layout="fill"
             alt={food?.foodName}
           />
-        </div>
+        </div> */}
 
         <div className="w-[300px] flex flex-col justify-between">
           <div className="flex">
             <div className="w-full">
               <h3 className="font-bold text-red-500">{food?.foodName}</h3>
               <div className="flex flex-wrap">
-                <p className="text-xs font-light">{food.ingredients}</p>
+                <p className="text-xs font-light">{food?.ingredients}</p>
               </div>
             </div>
             <CircleX
@@ -47,7 +58,7 @@ export const OrderSheetFoodItem = ({ food, quantity }) => {
               </Button>
             </div>
 
-            <h4 className="font-bold">12₮</h4>
+            <h4 className="font-bold">12,500₮</h4>
           </div>
         </div>
       </div>

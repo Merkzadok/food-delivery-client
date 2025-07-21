@@ -1,12 +1,12 @@
 "use client";
 
 import { FoodCard } from "@/components/food";
-import { foodWithCategory } from "@/lib/types/types";
+import { foodWithCategoryType } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 
 export const FoodsWithCategories = () => {
   const [foodWithCategories, setFoodWithCategories] = useState<
-    foodWithCategory[]
+    foodWithCategoryType[]
   >([]);
   useEffect(() => {
     const getFoodWithCategories = async () => {
@@ -39,6 +39,7 @@ export const FoodsWithCategories = () => {
               return (
                 <div key={food?._id}>
                   <FoodCard
+                    food={food}
                     foodName={food?.foodName}
                     price={food?.price}
                     image={food?.image}

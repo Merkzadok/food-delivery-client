@@ -4,15 +4,17 @@ export type categoryNameType = {
   createdAt: string;
   updatedAt: string;
 };
-export type foods = {
+export type FoodType = {
   _id: string;
   foodName: string;
   price: number;
   image: string;
   ingredients: string;
+  createdAt: string;
+  updatedAt: string;
 };
-export type foodWithCategory = {
+export type foodWithCategoryType = {
   _id: string;
   categoryName: string;
-  foods: foods[];
+  foods: FoodType[];
 };

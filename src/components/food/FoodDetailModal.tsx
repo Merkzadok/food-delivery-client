@@ -13,9 +13,10 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { useContext, useState } from "react";
+import { FoodType } from "@/lib/types/types";
 
 type FoodDetailModalProps = {
-  food: never;
+  food: FoodType;
   isModalOpen: boolean;
   onToggleModal: () => void;
 };
@@ -44,7 +45,12 @@ export const FoodDetailModal = ({
   const handleAddToCart = () => {
     setFoodCart([
       ...foodCart,
-      { price: price, foodName: foodName, quantity: quantity },
+      {
+        price: price,
+        foodName: foodName,
+        quantity: quantity,
+        food: food,
+      },
     ]);
     setQuantity(1);
     onToggleModal();
@@ -55,7 +61,7 @@ export const FoodDetailModal = ({
       <DialogContent className="bg-white flex flex-col max-w-[826px] max-h-[412px] sm:rounded-3xl">
         <div className="flex w-full h-full gap-6 rounded-3xl">
           <div className="w-1/2 overflow-hidden rounded-xl">
-            {/* <Image
+            <Image
               src={image}
               alt={foodName}
               objectFit="cover"
@@ -63,7 +69,7 @@ export const FoodDetailModal = ({
               width={377}
               height={364}
               className="rounded-xl"
-            /> */}
+            />
           </div>
           <div className="flex flex-col w-1/2 ">
             <div className="flex justify-end">

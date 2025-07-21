@@ -1,5 +1,5 @@
 "use client";
-import { foods } from "@/lib/types/types";
+
 import {
   createContext,
   Dispatch,
@@ -38,6 +38,7 @@ export default function FoodCartContextProvider({
   >([]);
   useEffect(() => {
     const cartItems = localStorage.getItem("foodCart");
+
     if (cartItems) setFoodCart(JSON.parse(cartItems) || []);
   }, []);
 
