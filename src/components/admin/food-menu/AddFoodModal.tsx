@@ -1,3 +1,5 @@
+"use client";
+
 import { Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,6 +66,40 @@ export const AddFoodModal = ({
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     setUploadedImage(event.target.files[0]);
+  };
+  const [foodName, setFoodName] = useState<string>("");
+
+  const [price, setPrice] = useState<string>("");
+
+  const [category, setCategory] = useState<string>();
+
+  const [image, setImage] = useState<string>();
+
+  const [ingredients, setIngredients] = useState<string>();
+
+  const createFood = async () => {
+    try {
+      const response = await fetch("http://localhost:4200/food", {
+        method: "POST",
+        body: JSON.stringify({
+          foodName: foodName,
+          price: price,
+          category: category,
+          image: image,
+          ingredients: ingredients,
+        }),
+        headers: {
+          "content-type": "application/json;  charset=UTF-8",
+        },
+      });
+      console.log("response", response);
+      if (!response.ok) {
+        throw new Error("Failed to create category");
+      }
+      // toast.success("category successfully created");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

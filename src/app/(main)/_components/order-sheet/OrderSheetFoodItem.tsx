@@ -1,25 +1,30 @@
 import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { FoodType, foodWithCategoryType } from "@/lib/types/types";
+import { useFoodCart } from "@/providers/FoodCard";
 
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 type OrderSheetFoodItemProps = {
   food: string;
   quantity: number;
   foodName: string;
   ingredients: string;
+  price: string;
 };
 
 export const OrderSheetFoodItem = ({
+  decrimentFoodQuantity,
+  incrementFoodQuantity,
   food,
   quantity,
 }: OrderSheetFoodItemProps) => {
-  console.log("food", food, "quantity", quantity);
   return (
     <>
       <div className="flex gap-3">
-        {/* <div className="w-[124px] h-[120px] relative rounded-lg overflow-hidden">
+        <div className="w-[124px] h-[120px] relative rounded-lg overflow-hidden">
           <Image
             className="fill"
             src={food?.image}
@@ -27,7 +32,7 @@ export const OrderSheetFoodItem = ({
             layout="fill"
             alt={food?.foodName}
           />
-        </div> */}
+        </div>
 
         <div className="w-[300px] flex flex-col justify-between">
           <div className="flex">
@@ -47,13 +52,19 @@ export const OrderSheetFoodItem = ({
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Button variant="ghost">
+              <Button
+                variant="ghost"
+                onClick={() => decrimentFoodQuantity(food._id)}
+              >
                 <Minus />
               </Button>
 
               <div className="text-lg font-semibold">{quantity}</div>
 
-              <Button variant="ghost">
+              <Button
+                variant="ghost"
+                onClick={() => incrementFoodQuantity(food._id)}
+              >
                 <Plus />
               </Button>
             </div>

@@ -26,13 +26,11 @@ export const FoodDetailModal = ({
   isModalOpen,
   onToggleModal,
 }: FoodDetailModalProps) => {
-  const [quantity, setQuantity] = useState<number>(1);
-
-  // const foodCard = useContext(FoodCartContext);
-
-  const { foodCart, setFoodCart } = useContext(FoodCartContext);
+  const { foodCart, setFoodCart, addToCart } = useContext(FoodCartContext);
 
   const { foodName, image, ingredients, price } = food;
+
+  const [quantity, setQuantity] = useState<number>(1);
 
   const addQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -43,16 +41,16 @@ export const FoodDetailModal = ({
   };
 
   const handleAddToCart = () => {
-    setFoodCart([
-      ...foodCart,
-      {
-        price: price,
+    addToCart({
+      food: {
+        ...food,
         foodName: foodName,
-        quantity: quantity,
-        food: food,
+        price: price,
+        image: image,
+        ingredients: ingredients,
       },
-    ]);
-    setQuantity(1);
+      quantity: quantity,
+    });
     onToggleModal();
   };
 

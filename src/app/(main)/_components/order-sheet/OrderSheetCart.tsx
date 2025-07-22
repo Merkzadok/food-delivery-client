@@ -4,35 +4,38 @@ import { OrderSheetFoodItem } from "./OrderSheetFoodItem";
 import { useContext } from "react";
 import { FoodCartContext } from "@/providers/FoodCard";
 
-export const cartData = [
-  {
-    food: {
-      _id: "1",
-      foodName: "foodName",
-      price: 1200,
-      image: "",
-      ingredients: "ingredients ingredients",
-      categoryId: {
-        _id: "1",
-        categoryName: "categoryName",
-        createdAt: "2025-06-27T17:00:00+08:00",
-        updatedAt: "2025-06-22T17:00:00+08:00",
-      },
-    },
-    quantity: 1,
-  },
-];
+// export const cartData = [
+//   {
+//     food: {
+//       _id: "1",
+//       foodName: "foodName",
+//       price: 1200,
+//       image: "",
+//       ingredients: "ingredients ingredients",
+//       categoryId: {
+//         _id: "1",
+//         categoryName: "categoryName",
+//         createdAt: "2025-06-27T17:00:00+08:00",
+//         updatedAt: "2025-06-22T17:00:00+08:00",
+//       },
+//     },
+//     quantity: 1,
+//   },
+// ];
 export const OrderSheetCart = () => {
-  const { foodCart } = useContext(FoodCartContext);
-  console.log("yes", foodCart);
+  const { foodCart, incrementFoodQuantity, decrimentFoodQuantity } =
+    useContext(FoodCartContext);
+
   const renderFoodCard = () => {
     if (foodCart?.length) {
       return foodCart?.map((item) => {
         return (
           <OrderSheetFoodItem
-            key={item.price}
+            key={item.food._id}
             food={item.food}
             quantity={item.quantity}
+            incrementFoodQuantity={incrementFoodQuantity}
+            decrimentFoodQuantity={decrimentFoodQuantity}
           />
         );
       });
