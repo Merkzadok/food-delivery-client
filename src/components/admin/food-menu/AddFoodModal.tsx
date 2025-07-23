@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useState } from "react";
 import { ImageUploader } from "./ImageUploader";
+import { toast } from "sonner";
 
 type AddFoodModalProps = {
   categoryName: string;
@@ -54,6 +55,30 @@ export const AddFoodModal = ({
   };
 
   const handleCreateFood = async () => {
+    try {
+      const response = await fetch("http://localhost:4200/food", {
+        method: "POST",
+        body: JSON.stringify({
+          foodName: foodInfo.foodName,
+          price: foodInfo.price,
+          category: foodInfo.category,
+          image:
+            "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/00/a0000370/img/basic/a0000370_main.jpg",
+          ingredients: foodInfo.ingredients,
+        }),
+        headers: {
+          "content-type": "application/json;  charset=UTF-8",
+        },
+      });
+      console.log("response", response);
+      if (!response.ok) {
+        throw new Error("Failed to create food");
+      }
+      toast.success("food successfully created");
+    } catch (error) {
+      console.error(error);
+    }
+
     setFoodInfo({
       foodName: "",
       price: "",
@@ -67,40 +92,31 @@ export const AddFoodModal = ({
     if (!event.target.files) return;
     setUploadedImage(event.target.files[0]);
   };
-  const [foodName, setFoodName] = useState<string>("");
 
-  const [price, setPrice] = useState<string>("");
-
-  const [category, setCategory] = useState<string>();
-
-  const [image, setImage] = useState<string>();
-
-  const [ingredients, setIngredients] = useState<string>();
-
-  const createFood = async () => {
-    try {
-      const response = await fetch("http://localhost:4200/food", {
-        method: "POST",
-        body: JSON.stringify({
-          foodName: foodName,
-          price: price,
-          category: category,
-          image: image,
-          ingredients: ingredients,
-        }),
-        headers: {
-          "content-type": "application/json;  charset=UTF-8",
-        },
-      });
-      console.log("response", response);
-      if (!response.ok) {
-        throw new Error("Failed to create category");
-      }
-      // toast.success("category successfully created");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const createFood = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:4200/food", {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         foodName: foodName,
+  //         price: price,
+  //         category: category,
+  //         image: image,
+  //         ingredients: ingredients,
+  //       }),
+  //       headers: {
+  //         "content-type": "application/json;  charset=UTF-8",
+  //       },
+  //     });
+  //     console.log("response", response);
+  //     if (!response.ok) {
+  //       throw new Error("Failed to create food");
+  //     }
+  //     // toast.success("category successfully created");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <Dialog>

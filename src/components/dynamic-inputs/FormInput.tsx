@@ -11,6 +11,7 @@ export const FormInput = ({
   inputError = false,
   name,
   placeholder,
+
   ...props
 }: FormInputProps) => {
   const inputBorderErrorStyle = inputError ? "border-red-500" : "";
