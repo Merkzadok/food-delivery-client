@@ -35,7 +35,7 @@ export const Login = () => {
       }
 
       toast.success("succesfully login");
-      push("/");
+      // push("/");
     } catch (error) {
       toast.error(error?.message);
 

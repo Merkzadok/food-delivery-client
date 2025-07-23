@@ -6,6 +6,7 @@ import { SignUpEmailBox } from "./SignUpEmailBox";
 import { SignUpPasswordBox } from "./SignUpPasswordBox";
 import { toast } from "sonner";
 import { useFormik } from "formik";
+import { DataTable } from "@/components/admin/orders/data-table";
 
 export const Signup = () => {
   const { push } = useRouter();
@@ -13,7 +14,7 @@ export const Signup = () => {
 
   const [password, setPassword] = useState<string>("");
 
-  const signUp = async (values) => {
+  const signUp = async (values: { email?: string; password?: string }) => {
     console.log(values);
     try {
       const response = await fetch("http://localhost:4200/user", {
@@ -30,11 +31,13 @@ export const Signup = () => {
       });
       const data = await response.json();
       console.log("response", data);
+
       if (!response.ok) {
         throw new Error("Failed to create category");
       }
       toast.success("successfully created user");
-      push("/login");
+
+      // push("/login");
     } catch (error) {
       console.error(error);
     }

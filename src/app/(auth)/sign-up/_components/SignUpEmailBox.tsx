@@ -10,8 +10,8 @@ import { toast } from "sonner";
 
 type EmailBoxProps = {
   values: { email: string; password: string };
-  errors: { email?: string; password: string };
-  touched: { email?: boolean; password: boolean };
+  errors: { email?: string; password?: string };
+  touched: { email?: string; password?: boolean };
   handleChange: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur: (_event: React.FocusEvent<HTMLInputElement>) => void;
   handleNext: () => void;
