@@ -16,7 +16,7 @@ export const Login = () => {
   const { push } = useRouter();
   const [password, setPassword] = useState<string>("");
 
-  const signin = async (values) => {
+  const signin = async (values: { email?: string; password?: string }) => {
     try {
       const response = await fetch("http://localhost:4200/user/login", {
         method: "POST",
@@ -29,7 +29,10 @@ export const Login = () => {
         },
       });
       const data = await response.json();
-      console.log("response", data);
+      console.log("response", data.accessToken);
+
+      localStorage.setItem("accessToken", data.accessToken);
+
       if (!response.ok) {
         throw new Error("wrong password");
       }
@@ -37,7 +40,9 @@ export const Login = () => {
       toast.success("succesfully login");
       // push("/");
     } catch (error) {
-      toast.error(error?.message);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      toast.error(errorMessage);
 
       console.error(error);
     }
