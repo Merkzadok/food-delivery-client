@@ -1,6 +1,6 @@
 "use client";
 
-import { FoodType } from "@/lib/types/types";
+import { AddToCartType, FoodType } from "@/lib/types/types";
 import {
   createContext,
   Dispatch,
@@ -33,6 +33,7 @@ type FoodCartContextType = {
     >
   >;
   removeFromCart: (foodId: string) => void;
+  addToCart: (food: AddToCartType) => void;
 };
 export const FoodCartContext = createContext<FoodCartContextType>(
   {} as FoodCartContextType
@@ -49,6 +50,7 @@ export default function FoodCartContextProvider({
 
   const addToCart = (newFood: FoodWithQuantity) => {
     console.log("Adding to cart:", newFood);
+
     const existingFood = foodCart.find(
       ({ food }) => food._id === newFood.food._id
     );

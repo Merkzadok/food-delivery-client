@@ -12,9 +12,15 @@ export type FoodType = {
   ingredients: string;
   createdAt: string;
   updatedAt: string;
+  quantity: number;
 };
 export type foodWithCategoryType = {
   _id: string;
   categoryName: string;
   foods: FoodType[];
+};
+
+export type AddToCartType = {
+  food: FoodType;
+  quantity: number;
 };
