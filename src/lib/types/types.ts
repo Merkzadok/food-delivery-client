@@ -13,6 +13,7 @@ export type FoodType = {
   createdAt: string;
   updatedAt: string;
   quantity: number;
+  totalPrice: number;
 };
 export type foodWithCategoryType = {
   _id: string;

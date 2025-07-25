@@ -17,23 +17,12 @@ export type FoodWithQuantity = {
 };
 
 type FoodCartContextType = {
-  foodCart: {
-    foodName: string;
-    price: number;
-    quantity: number;
-    _id: string;
-  }[];
-  setFoodCart: Dispatch<
-    SetStateAction<
-      {
-        foodName: string;
-        price: number;
-        quantity: number;
-      }[]
-    >
-  >;
-  removeFromCart: (foodId: string) => void;
+  foodCart: FoodWithQuantity[];
+  setFoodCart: Dispatch<SetStateAction<FoodWithQuantity[]>>;
   addToCart: (food: AddToCartType) => void;
+  removeFromFoodCart: (foodId: string) => void;
+  incrementFoodQuantity: (foodId: string) => void;
+  decrimentFoodQuantity: (foodId: string) => void;
 };
 export const FoodCartContext = createContext<FoodCartContextType>(
   {} as FoodCartContextType
@@ -44,28 +33,34 @@ export default function FoodCartContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [foodCart, setFoodCart] = useState<
-    { foodName: string; price: number; quantity: number }[]
-  >([]);
+  const [foodCart, setFoodCart] = useState<FoodWithQuantity[]>([]);
+  const addToCart = (food: AddToCartType) => {
+    const newFoodWithQuantity: FoodWithQuantity = {
+      food: food.food,
+      quantity: food.quantity,
+      totalPrice: food.quantity * Number(food.food.price),
+    };
 
-  const addToCart = (newFood: FoodWithQuantity) => {
-    console.log("Adding to cart:", newFood);
+    console.log("Adding to cart:", newFoodWithQuantity);
 
     const existingFood = foodCart.find(
-      ({ food }) => food._id === newFood.food._id
+      ({ food }) => food._id === newFoodWithQuantity.food._id
     );
 
     if (existingFood) {
-      const updatedFoodCart = updateFoodCart(foodCart, newFood);
+      const updatedFoodCart = updateFoodCart(foodCart, newFoodWithQuantity);
 
       setFoodCart(updatedFoodCart);
       return;
     }
 
-    setFoodCart([...foodCart, newFood]);
+    setFoodCart([...foodCart, newFoodWithQuantity]);
   };
-
-  const updateFoodCart = (foodCart, newFood) => {
+  //aaaa
+  const updateFoodCart = (
+    foodCart: FoodWithQuantity[],
+    newFood: FoodWithQuantity
+  ) => {
     const updatedFoodCart = foodCart.map(({ food, quantity, totalPrice }) => {
       if (food._id === food._id) {
         return {
@@ -84,6 +79,7 @@ export default function FoodCartContextProvider({
 
     return updatedFoodCart;
   };
+  //aaaaaa
   // increment decrement
   const incrementFoodQuantity = (foodId: string) => {
     const updatedFoodCart = foodCart.map(({ food, quantity, totalPrice }) => {
