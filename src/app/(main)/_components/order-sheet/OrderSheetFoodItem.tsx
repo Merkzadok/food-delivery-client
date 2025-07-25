@@ -8,11 +8,14 @@ import Image from "next/image";
 import { useState } from "react";
 
 type OrderSheetFoodItemProps = {
-  food: string;
+  food: any;
   quantity: number;
-  foodName: string;
-  ingredients: string;
-  price: string;
+  foodName?: string;
+  ingredients?: string;
+  price?: string;
+  incrementFoodQuantity: (id: string) => void;
+  decrimentFoodQuantity: (id: string) => void;
+  removeFromFoodCart: (id: string) => void;
 };
 
 export const OrderSheetFoodItem = ({
@@ -20,6 +23,7 @@ export const OrderSheetFoodItem = ({
   incrementFoodQuantity,
   food,
   quantity,
+  removeFromFoodCart,
 }: OrderSheetFoodItemProps) => {
   return (
     <>
@@ -47,6 +51,7 @@ export const OrderSheetFoodItem = ({
               size={50}
               color="red"
               className="cursor-pointer"
+              onClick={() => removeFromFoodCart(food._id)}
             />
           </div>
 

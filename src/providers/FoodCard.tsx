@@ -21,6 +21,7 @@ type FoodCartContextType = {
     foodName: string;
     price: number;
     quantity: number;
+    _id: string;
   }[];
   setFoodCart: Dispatch<
     SetStateAction<
@@ -31,6 +32,7 @@ type FoodCartContextType = {
       }[]
     >
   >;
+  removeFromCart: (foodId: string) => void;
 };
 export const FoodCartContext = createContext<FoodCartContextType>(
   {} as FoodCartContextType
@@ -120,6 +122,17 @@ export default function FoodCartContextProvider({
 
     setFoodCart(updatedFoodCart);
   };
+
+  const removeFromFoodCart = (foodId: string) => {
+    console.log(foodId, foodCart);
+    const deleteUpdatedFood = foodCart.filter(
+      (item) => item.food._id !== foodId
+    );
+    console.log(deleteUpdatedFood);
+
+    setFoodCart(deleteUpdatedFood);
+  };
+
   // ending of inc dec
   useEffect(() => {
     const cartItems = localStorage.getItem("foodCart");
@@ -137,6 +150,7 @@ export default function FoodCartContextProvider({
         foodCart,
         setFoodCart,
         addToCart,
+        removeFromFoodCart,
         incrementFoodQuantity,
         decrimentFoodQuantity,
       }}

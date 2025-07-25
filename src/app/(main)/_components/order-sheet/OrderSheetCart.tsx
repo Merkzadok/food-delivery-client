@@ -23,8 +23,12 @@ import { FoodCartContext } from "@/providers/FoodCard";
 //   },
 // ];
 export const OrderSheetCart = () => {
-  const { foodCart, incrementFoodQuantity, decrimentFoodQuantity } =
-    useContext(FoodCartContext);
+  const {
+    foodCart,
+    incrementFoodQuantity,
+    decrimentFoodQuantity,
+    removeFromFoodCart,
+  } = useContext(FoodCartContext);
 
   const renderFoodCard = () => {
     if (foodCart?.length) {
@@ -36,6 +40,7 @@ export const OrderSheetCart = () => {
             quantity={item.quantity}
             incrementFoodQuantity={incrementFoodQuantity}
             decrimentFoodQuantity={decrimentFoodQuantity}
+            removeFromFoodCart={removeFromFoodCart}
           />
         );
       });

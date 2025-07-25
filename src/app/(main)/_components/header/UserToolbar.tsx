@@ -13,7 +13,7 @@ export const UserToolbar = ({ openSidebar }: UserToolbarProps) => {
 
   if (!user) {
     console.log("Login хийнэ үү!");
-    toast.error(user);
+    // toast.error(user);
   }
   return (
     <>
